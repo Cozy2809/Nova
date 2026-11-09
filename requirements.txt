@@ -1,0 +1,6 @@
+pywhispercpp
+sounddevice
+soundfile
+numpy
+
+soundcard
