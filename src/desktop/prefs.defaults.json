@@ -1,0 +1,49 @@
+{
+  "v": 3,
+  "theme": "dark",
+  "wallpaper": "aurora",
+  "accent": "nova",
+  "accentHue": 192,
+  "startInDesktop": false,
+  "dock": { "pos": "bottom", "size": 46, "labels": false, "pins": [] },
+  "bar": { "cpu": true, "ram": true, "net": true, "nova": true },
+  "widgets": {
+    "clock": { "on": true, "x": 28, "y": 64 },
+    "system": { "on": true, "x": 28, "y": 430 },
+    "music": { "on": true, "x": null, "y": 64 },
+    "quick": { "on": false, "x": null, "y": 230 },
+    "notes": { "on": false, "x": null, "y": 540 },
+    "net": { "on": false, "x": 28, "y": 650 },
+    "activity": { "on": true, "x": null, "y": 390 }
+  },
+  "nativeWidgets": {
+    "opacity": 62,
+    "side": "right",
+    "size": "normal",
+    "displayId": "",
+    "animations": true,
+    "notifications": true,
+    "visible": false,
+    "dimIdle": true,
+    "items": ["orb", "talk", "clock", "system", "music", "activity", "notifications"],
+    "window": {},
+    "topbar": {
+      "on": false, "displays": ["primary"], "align": "center", "width": "compact", "autoHide": false,
+      "showStatus": true, "showTalk": true, "showWidgets": true, "showDock": true, "showClock": true,
+      "showNotifications": true, "showBell": true, "showActive": false, "showSystem": false, "showStart": false
+    },
+    "dockbar": {
+      "on": false, "displays": ["primary"], "labels": false, "size": "normal", "autoHide": false,
+      "showWidgets": true, "showTalk": true, "showPins": true, "showRunning": true, "showSystem": true
+    }
+  },
+  "shell": {
+    "hideOnFullscreen": true,
+    "startMode": "window",
+    "hotkey": true,
+    "taskbarBadge": true,
+    "toasts": "auto",
+    "respectQuiet": true,
+    "effects": "full"
+  }
+}

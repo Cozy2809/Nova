@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<style>
+html,body{margin:0;height:100%;background:transparent;overflow:hidden;font-family:'Segoe UI Variable','Segoe UI',system-ui,sans-serif;-webkit-user-select:none;user-select:none}
+:root{--h:192}
+.pill{position:absolute;inset:3px;border-radius:99px;background:linear-gradient(180deg,rgba(18,28,56,.97),rgba(7,11,26,.98));border:1px solid hsl(var(--h) 90% 65% / .5);box-shadow:0 0 16px hsl(var(--h) 100% 60% / .35),0 3px 10px rgba(0,0,0,.5);display:flex;align-items:center;gap:8px;padding:0 12px;color:#e8f3ff;cursor:pointer;transition:border-color .4s,box-shadow .4s}
+.orb{flex:none;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,hsl(var(--h) 100% 66%) 45%,hsl(calc(var(--h) + 75) 100% 55%));box-shadow:0 0 10px hsl(var(--h) 100% 65%);animation:pulse 2.4s ease-in-out infinite}
+.t{font-size:12px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.eq{display:none;flex:none;gap:2px;align-items:flex-end;height:14px}.eq i{width:3px;height:100%;background:hsl(var(--h) 100% 72%);transform-origin:bottom;animation:eq .8s infinite ease-in-out}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
+body.music .eq{display:flex}
+@keyframes pulse{50%{transform:scale(.8);opacity:.8}}@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+</style></head>
+<body><div class="pill" id="p" title="Nova"><div class="orb"></div><div class="t" id="t">Nova</div><div class="eq"><i></i><i></i><i></i></div></div>
+<script>
+const HUE={idle:192,listening:168,thinking:262,speaking:205,muted:350},TXT={idle:'Nova',listening:'Escuchando…',thinking:'Pensando…',speaking:'Hablando…',muted:'Silencio'};
+window.island.onState((d)=>{d=d||{};document.documentElement.style.setProperty('--h',HUE[d.st]??192);document.body.classList.toggle('music',!!d.music);
+document.getElementById('t').textContent=d.music&&d.st==='idle'?'♪ '+d.music:(TXT[d.st]||'Nova');});
+document.getElementById('p').addEventListener('click',()=>window.island.click());
+</script></body></html>

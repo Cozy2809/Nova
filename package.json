@@ -1,5 +1,5 @@
 {
-  "name": "jarvis-clone",
+  "name": "nova",
   "version": "0.1.0",
   "description": "Asistente IA local con HUD estilo Iron Man",
   "main": "electron/main.js",

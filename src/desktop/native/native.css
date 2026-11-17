@@ -1,0 +1,118 @@
+/* Shell nativo de Nova (panel, dock y barra). Un solo sistema de "vidrio" para las tres capas.
+   Nota: el vidrio es translúcido (CSS); no desenfoca el escritorio real porque Electron no lo permite en ventanas transparentes. */
+.nd.nv { position: relative; inset: auto; width: 100%; height: 100%; background: transparent; overflow: hidden; font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  --g-bg: rgba(12, 20, 40, calc(var(--native-alpha, .62) + .12)); --g-bg2: rgba(255,255,255,.06); --g-line: rgba(190, 220, 255, .18); --g-hi: rgba(255,255,255,.08); --g-ink: #eaf4ff; --g-mut: rgba(224,238,255,.66);
+  --g-shadow: 0 10px 28px rgba(0,0,0,.32); --g-ac: hsl(var(--h, 192) 100% 68%); --g-ease: cubic-bezier(.2,.8,.2,1); --g-r: 16px; color: var(--g-ink); }
+.nd.nv[data-theme="light"] { --g-bg: rgba(247, 250, 255, calc(var(--native-alpha, .62) + .2)); --g-bg2: rgba(10,30,70,.06); --g-line: rgba(12,40,90,.18); --g-hi: rgba(255,255,255,.6); --g-ink: #0c1a33; --g-mut: rgba(12,26,51,.66); --g-shadow: 0 10px 26px rgba(20,40,80,.2); --g-ac: hsl(var(--h, 192) 90% 36%); }
+.nv button { font: inherit; color: inherit; cursor: pointer; }
+.nv :focus-visible { outline: 2px solid var(--g-ac); outline-offset: 2px; }
+.nv-glyph { display: block; }
+.nv-badge { position: absolute; top: -3px; right: -3px; min-width: 15px; height: 15px; padding: 0 4px; border-radius: 99px; background: #ff5d7a; color: #fff; font: 700 9.5px/15px 'Segoe UI', sans-serif; text-align: center; font-style: normal; box-shadow: 0 0 0 2px var(--g-bg); }
+.nv-hint { display: block; color: var(--g-mut); font-size: 10.5px; margin-top: 2px; font-weight: 400; }
+
+/* ---------- Superficie de vidrio compartida ---------- */
+.nv-dock, .nv-bar { position: relative; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(180deg, var(--g-hi), transparent 55%), var(--g-bg); border: 1px solid var(--g-line); box-shadow: var(--g-shadow), inset 0 1px 0 var(--g-hi); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); }
+.nv-dockroot, .nv-barroot { display: flex; align-items: flex-end; justify-content: center; padding: 6px 8px; box-sizing: border-box; }
+.nv-barroot { align-items: flex-start; }
+.nv-dockroot[data-visible="0"] .nv-dock { transform: translateY(14px) scale(.97); opacity: 0; }
+.nv-barroot[data-visible="0"] .nv-bar { transform: translateY(-14px); opacity: 0; }
+.nv[data-motion="on"] .nv-dock, .nv[data-motion="on"] .nv-bar { transition: transform .22s var(--g-ease), opacity .18s ease; animation: nv-in .28s var(--g-ease) both; }
+@keyframes nv-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+
+/* ---------- Dock ---------- */
+.nv-dock { padding: 7px 10px; border-radius: 24px; gap: 6px; max-width: 100%; }
+.nv-tile { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 14px; background: transparent; color: var(--g-ink); padding: 0; transition: background .15s, transform .15s var(--g-ease); }
+.nv-dock[data-size="compact"] .nv-tile { width: 38px; height: 38px; border-radius: 12px; }
+.nv-dock[data-labels="1"] .nv-tile { width: auto; min-width: 52px; height: 54px; padding: 4px 8px; gap: 2px; align-content: center; }
+.nv-tile small { font-size: 9.5px; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--g-mut); }
+.nv-tile:hover { background: var(--g-bg2); transform: translateY(-2px); }
+.nv-tile:active { transform: translateY(0) scale(.96); }
+.nv-tile img { width: 28px; height: 28px; object-fit: contain; pointer-events: none; }
+.nv-dock[data-size="compact"] .nv-tile img { width: 24px; height: 24px; }
+.nv-letter { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: var(--g-bg2); border: 1px solid var(--g-line); font-weight: 700; font-size: 13px; }
+.nv-tile[data-running="1"]::after { content: ''; position: absolute; bottom: 2px; left: 50%; width: 5px; height: 5px; border-radius: 99px; margin-left: -2.5px; background: var(--g-mut); transition: width .18s var(--g-ease), margin .18s var(--g-ease), background .18s; }
+.nv-tile[data-active="1"]::after { width: 14px; margin-left: -7px; background: var(--g-ac); }
+.nv-tile[data-min="1"] img, .nv-tile[data-min="1"] .nv-letter { opacity: .55; }
+.nv-sep { width: 1px; align-self: stretch; margin: 8px 2px; background: var(--g-line); }
+.nv-orb { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 99px; font-weight: 800; font-size: 13px; color: #04101f; background: radial-gradient(circle at 35% 30%, #fff, var(--g-ac) 60%); box-shadow: 0 0 14px hsl(var(--h, 192) 100% 60% / .55); }
+.nv-orb[data-state="listening"] { animation: nv-pulse 1.2s ease-in-out infinite; } .nv-orb[data-state="thinking"] { animation: nv-pulse .7s ease-in-out infinite; }
+@keyframes nv-pulse { 50% { box-shadow: 0 0 22px hsl(var(--h, 192) 100% 62% / .9); transform: scale(1.06); } }
+
+/* ---------- Barra superior ---------- */
+.nv-bar { height: 38px; padding: 0 8px 0 6px; border-radius: 99px; gap: 6px; max-width: 100%; white-space: nowrap; }
+.nv-bar[data-mode="full"] { width: 100%; box-sizing: border-box; }
+.nv-bar[data-level="warn"], .nv-bar[data-level="err"] { border-color: rgba(255,93,122,.55); }
+.nv-grow { flex: 1; }
+.nv-brand { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px 0 9px; border: 0; border-radius: 99px; background: var(--g-bg2); font-weight: 800; font-size: 11px; letter-spacing: .16em; }
+.nv-brand i, .nv-title i { width: 8px; height: 8px; border-radius: 99px; background: var(--g-ac); box-shadow: 0 0 9px var(--g-ac); }
+.nv-brand i[data-state="listening"], .nv-title i[data-state="listening"] { background: #6dffb0; box-shadow: 0 0 10px #6dffb0; } .nv-brand i[data-state="thinking"], .nv-title i[data-state="thinking"] { background: #ffd36d; box-shadow: 0 0 10px #ffd36d; }
+.nv-status, .nv-active, .nv-clock, .nv-sysmini { font-size: 11.5px; color: var(--g-mut); padding: 0 4px; }
+.nv-active { max-width: 150px; overflow: hidden; text-overflow: ellipsis; color: var(--g-ink); }
+.nv-clock { color: var(--g-ink); font-variant-numeric: tabular-nums; }
+.nv-act { position: relative; display: grid; place-items: center; width: 30px; height: 28px; border: 0; border-radius: 99px; background: transparent; transition: background .15s; }
+.nv-act:hover { background: var(--g-bg2); }
+.nv-toast { display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; max-width: 340px; height: 30px; padding: 0 12px; border: 1px solid var(--g-line); border-radius: 99px; background: hsl(var(--h, 192) 100% 60% / .16); text-align: left; animation: nv-in .24s var(--g-ease) both; line-height: 1.15; }
+.nv-toast[data-level="warn"], .nv-toast[data-level="err"] { background: rgba(255,93,122,.18); }
+.nv-toast[data-level="ok"] { background: rgba(109,255,176,.16); }
+.nv-toast b { font-size: 11px; max-width: 320px; overflow: hidden; text-overflow: ellipsis; } .nv-toast span { font-size: 10px; color: var(--g-mut); max-width: 320px; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- Panel de widgets ---------- */
+.nd.nv.nv-panel { display: flex; flex-direction: column; gap: 10px; padding: 10px 10px 14px; box-sizing: border-box; overflow: auto; scrollbar-width: thin; }
+.nv-panel[data-idle="1"] .nv-card, .nv-panel[data-idle="1"] .nv-head { transition: opacity .35s ease; }
+.nv-panel[data-idle="1"]:not(:hover) .nv-card { opacity: .8; }
+.nv-head { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 40px; padding: 4px 6px 4px 14px; border-radius: 99px; border: 1px solid var(--g-line); background: linear-gradient(180deg, var(--g-hi), transparent 60%), var(--g-bg); box-shadow: var(--g-shadow); backdrop-filter: blur(18px); -webkit-app-region: drag; }
+.nv-head button { -webkit-app-region: no-drag; }
+.nv-title { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 11px; letter-spacing: .18em; }
+.nv-head-btns { display: flex; gap: 2px; }
+.nv-head-btns button { position: relative; display: grid; place-items: center; width: 30px; height: 30px; border: 0; border-radius: 99px; background: transparent; }
+.nv-head-btns button:hover, .nv-head-btns button[aria-pressed="true"] { background: var(--g-bg2); }
+.nv-grid { display: grid; gap: 10px; }
+.nv-card { position: relative; display: grid; gap: 8px; padding: 12px 13px; border-radius: var(--g-r); border: 1px solid var(--g-line); background: linear-gradient(180deg, var(--g-hi), transparent 50%), var(--g-bg); box-shadow: var(--g-shadow); backdrop-filter: blur(16px) saturate(1.25); -webkit-backdrop-filter: blur(16px) saturate(1.25); }
+.nv[data-motion="on"] .nv-card { animation: nv-in .3s var(--g-ease) both; transition: border-color .2s, transform .2s var(--g-ease); }
+.nv[data-motion="on"] .nv-card:hover { border-color: hsl(var(--h, 192) 100% 70% / .4); }
+.nv-card h5 { display: flex; align-items: center; gap: 7px; margin: 0; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--g-mut); }
+.nv-legacy { padding: 12px 13px; } .nv-legacy.nd-wg { background: linear-gradient(180deg, var(--g-hi), transparent 50%), var(--g-bg); }
+.nv-head-actions { margin-left: auto; display: inline-flex; gap: 6px; } .nv-head-actions button, .nv-notice button { border: 0; background: transparent; color: var(--g-mut); font-size: 10.5px; text-transform: none; letter-spacing: 0; } .nv-head-actions button:hover:not(:disabled) { color: var(--g-ac); } .nv-head-actions button:disabled { opacity: .4; cursor: default; }
+.nv-line { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; font-size: 12px; } .nv-line i { width: 7px; height: 7px; border-radius: 99px; background: var(--g-mut); } .nv-line i[data-s="succeeded"] { background: #6dffb0; } .nv-line i[data-s="failed"] { background: #ff5d7a; } .nv-line small { color: var(--g-mut); }
+.nv-talk { display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 99px; border: 1px solid var(--g-line); background: hsl(var(--h, 192) 100% 60% / .18); font-weight: 600; } .nv-talk:hover { background: hsl(var(--h, 192) 100% 60% / .3); }
+.nv-quickgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; } .nv-quick { display: grid; justify-items: center; gap: 3px; padding: 7px 2px; border: 0; border-radius: 12px; background: transparent; } .nv-quick:hover { background: var(--g-bg2); } .nv-quick img { width: 28px; height: 28px; } .nv-quick span { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: var(--g-bg2); font-weight: 700; } .nv-quick small { font-size: 9.5px; color: var(--g-mut); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nv-feed { display: grid; gap: 6px; max-height: 280px; overflow: auto; scrollbar-width: thin; }
+.nv-notice { display: grid; grid-template-columns: 8px 1fr auto; gap: 9px; align-items: start; padding: 8px 9px; border-radius: 11px; background: var(--g-bg2); cursor: default; }
+.nv-notice > i { width: 7px; height: 7px; margin-top: 5px; border-radius: 99px; background: var(--g-ac); } .nv-notice[data-level="warn"] > i, .nv-notice[data-level="err"] > i { background: #ff5d7a; } .nv-notice[data-level="ok"] > i { background: #6dffb0; }
+.nv-notice[data-read="1"] { opacity: .66; } .nv-notice[data-read="1"] > i { background: transparent; border: 1px solid var(--g-mut); }
+.nv-notice b { display: block; font-size: 12px; } .nv-notice b em { color: var(--g-mut); font-style: normal; font-weight: 500; } .nv-notice span { display: block; font-size: 11.5px; color: var(--g-mut); overflow-wrap: anywhere; } .nv-notice small { font-size: 10px; color: var(--g-mut); }
+
+/* ---------- Ajustes del shell ---------- */
+.nv-drawer { max-height: 62vh; overflow: auto; padding: 10px; border-radius: var(--g-r); border: 1px solid var(--g-line); background: var(--g-bg); box-shadow: var(--g-shadow); scrollbar-width: thin; }
+.nv-settings { display: grid; gap: 10px; font-size: 12px; } .nv-settings .nd-card { display: grid; gap: 4px; padding: 10px 12px; } .nv-settings .nd-sw-row { font-size: 12px; align-items: flex-start; } .nv-settings select, .nv-settings input[type="range"] { max-width: 150px; }
+.nv-sub { margin-top: 6px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--g-mut, var(--mut)); }
+.nv-checks { display: grid; gap: 4px; }
+.nv-order { display: flex; align-items: center; gap: 4px; padding: 2px 0; } .nv-order span { flex: 1; font-size: 11.5px; } .nv-order button { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line); border-radius: 7px; background: transparent; color: inherit; } .nv-order button:disabled { opacity: .3; }
+.nv-status-box { display: grid; gap: 3px; padding: 10px 12px; border-radius: 12px; background: var(--surf2); font-size: 11.5px; } .nv-status-box span { color: var(--mut); }
+
+/* ---------- Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) { .nv *, .nv *::before, .nv *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+.nv[data-motion="off"] *, .nv[data-motion="off"] *::before, .nv[data-motion="off"] *::after { animation: none !important; transition: none !important; }
+@media (forced-colors: active) { .nv-dock, .nv-bar, .nv-card, .nv-head { background: Canvas; border-color: CanvasText; box-shadow: none; backdrop-filter: none; } .nv-tile[data-active="1"]::after { background: Highlight; } }
+.nv[data-contrast="high"] { --g-bg: #000; --g-line: #fff; --g-ink: #fff; --g-mut: #fff; }
+
+/* ---------- Update 31: widgets heredados dentro de la cuadrícula ----------
+   Los widgets de la versión de escritorio traen la clase `nd-wg` (position:absolute; width:236px). Dentro del panel nativo
+   deben fluir en la cuadrícula: se anula esa posición y ese ancho, y el contenido interno no dibuja una segunda tarjeta. */
+.nv-grid > * { min-width: 0; }
+.nv-grid .nd-wg, .nv-grid .nv-legacy { position: relative !important; inset: auto !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; width: auto !important; max-width: 100% !important; transform: none !important; margin: 0 !important; box-sizing: border-box; overflow: hidden; }
+.nv-legacy .nd-wg { position: static !important; width: auto !important; padding: 0 !important; margin: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+/* ---------- Música ---------- */
+.nv-track { display: grid; gap: 1px; min-width: 0; } .nv-track b { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nv-track span { font-size: 11.5px; color: var(--g-mut); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .nv-track small { font-size: 10px; color: var(--g-mut); }
+.nv-media-btns { display: flex; align-items: center; gap: 4px; } .nv-media-btns button:not(.nv-linkbtn) { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 99px; background: var(--g-bg2); } .nv-media-btns button:not(.nv-linkbtn):hover { background: hsl(var(--h, 192) 100% 60% / .22); }
+.nv-linkbtn { margin-left: auto; border: 1px solid var(--g-line); border-radius: 99px; background: transparent; padding: 5px 11px; font-size: 11px; } .nv-linkbtn:hover { background: var(--g-bg2); }
+.nv-pill { margin-left: auto; font-style: normal; font-weight: 600; font-size: 9.5px; letter-spacing: .06em; padding: 2px 8px; border-radius: 99px; background: hsl(var(--h, 192) 100% 60% / .2); color: var(--g-ink); text-transform: none; }
+.nv-btnrow { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- Efectos ligeros (menos GPU): sin desenfoque y con fondos más opacos ---------- */
+.nv[data-effects="light"] { --g-bg: rgba(12, 20, 40, .93); --g-shadow: 0 3px 10px rgba(0,0,0,.26); }
+.nv[data-effects="light"][data-theme="light"] { --g-bg: rgba(247, 250, 255, .95); --g-shadow: 0 3px 10px rgba(20,40,80,.16); }
+.nv[data-effects="light"] .nv-dock, .nv[data-effects="light"] .nv-bar, .nv[data-effects="light"] .nv-card, .nv[data-effects="light"] .nv-head { backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* Con la ventana oculta no hay nada que animar */
+.nv-root[data-visible="0"] *, .nv-root[data-visible="0"] *::before, .nv-root[data-visible="0"] *::after { animation-play-state: paused !important; }

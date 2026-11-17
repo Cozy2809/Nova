@@ -1,0 +1,6 @@
+{
+  "electron/pcControl.js": "13df1a9c7a15327790eb453d6e04ba9df6f70d83dfdba474345475efbd67496e",
+  "src/utils/persona.js": "082a5d1fb89f960c636aae2dff9584f6418447a16a86dd536ff8c59094da3b04",
+  "src/utils/pcTasks.js": "9dd16848bbecfa130b739afecd9d6461e95cce73ca233962afe9367dd62be193",
+  "src/utils/intents_extra.js": "23aaf8a082ce1fe579e7d8b28dd262ad3800fdb6fd02495711de5cfe81d628c8"
+}

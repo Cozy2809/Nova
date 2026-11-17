@@ -1,0 +1,32 @@
+/* Pantalla del móvil de NOVA (se suma a hud.css). */
+html, body, #root { height: 100%; }
+.m-body { overflow: hidden; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
+.m-root { position: relative; height: 100%; display: flex; flex-direction: column; padding: calc(env(safe-area-inset-top) + 8px) 12px calc(env(safe-area-inset-bottom) + 10px); gap: 6px; overflow: hidden; }
+.m-root > *:not(.nova-bg) { position: relative; z-index: 1; }
+.m-head { display: flex; align-items: center; gap: 10px; }
+.m-name { letter-spacing: .5em; font-weight: 300; background: linear-gradient(90deg, var(--ac), var(--ac2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.m-stats { flex: 1; text-align: right; font-size: .68rem; color: var(--mut); font-family: 'Cascadia Mono', Consolas, monospace; }
+.m-head .menu { top: 110%; right: 0; }
+.m-orb { display: flex; justify-content: center; margin-top: -4px; }
+.m-mascot .panel { padding: 6px 10px; border-radius: 14px; }
+.m-chat { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 2px 2px 4px; }
+.m-chips { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; scrollbar-width: none; }
+.m-chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: .78rem; }
+.chip:active { border-color: var(--ac); }
+.m-bar { display: flex; gap: 8px; align-items: center; }
+.mic { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ac); background: hsl(var(--h) 90% 55% / .16); color: var(--ink); font-size: 1.15rem; box-shadow: 0 0 18px hsl(var(--h) 100% 60% / .35); }
+.mic.on { background: hsl(var(--h) 90% 55% / .5); animation: pulse 1s infinite; }
+.mic:disabled { opacity: .35; box-shadow: none; }
+.m-err { color: #ff8aa0; font-size: .85rem; }
+.m-login { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center; }
+.m-login .input { width: 100%; max-width: 320px; text-align: center; letter-spacing: .12em; }
+.m-sub { color: var(--mut); font-size: .9rem; max-width: 300px; }
+.btn.big { padding: 10px 26px; font-size: .9rem; }
+.nova-logo.big { width: 54px; height: 54px; }
+.m-modal { position: fixed !important; inset: 0; z-index: 50 !important; display: flex; align-items: flex-end; justify-content: center; padding: 14px; background: rgba(3,6,14,.7); backdrop-filter: blur(6px); }
+.m-card { width: 100%; max-width: 420px; border: 1px solid var(--line); border-radius: 22px; background: rgba(16,24,48,.96); padding: 18px; }
+.m-ask { margin: 8px 0; font-size: 1rem; }
+.m-detail { max-height: 120px; overflow: auto; white-space: pre-wrap; word-break: break-word; font-size: .72rem; color: var(--mut); background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px; }
+.m-btns { display: flex; gap: 10px; margin-top: 14px; } .m-btns .btn { flex: 1; }
+.m-hint { font-size: .72rem; color: #ffd98a; background: rgba(255,217,138,.08); border: 1px solid rgba(255,217,138,.25); border-radius: 12px; padding: 6px 10px; }

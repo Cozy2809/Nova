@@ -1,0 +1,10 @@
+{
+  "index.html": "dea49b2469f3e272f73747dae36afa3e3af7169cc5149bbefdbf29d32e636f64",
+  "electron/main.js": "9a1064fad7c685c4c139118d59b86166d93618fe07ee65d95c3be83fc8468608",
+  "src/components/AudioOrb.jsx": "27236db2bc3751eb41bf95672f714e2c6dde823d213fbe4c4e6d914ba02d01bb",
+  "src/desktop/desktop.css": "a3879fca519208f0126f1946888196c739bd7fd552c71b16490ff70c97e1aab7",
+  "src/App.jsx": "45d32cfb63a061990b416e55be77d5118031524eff35c42097584abce2e4e68c",
+  "electron/desktop/index.js": "c28a3c90ce8297526127a56e2b9f72a32520ef662c37e2c047c6bc0e3772d1c3",
+  "src/desktop/WindowsWidgets.jsx": "adc474ac7f24215513e18403305bb4d50d41d711e694571ae4c971867b784a8a",
+  "src/desktop/prefs.js": "f77a127ab12424f0b3045dfc0f2021fe32c5195d4b168730d4782f944755bc92"
+}

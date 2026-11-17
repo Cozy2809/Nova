@@ -1,0 +1,27 @@
+/* Mapa de flujo 3D de Nova */
+.nv-flowroot { background: radial-gradient(ellipse at 50% 40%, #0d1630 0%, #060914 70%) !important; color: #eaf4ff; display: grid; grid-template-columns: 240px 1fr 300px; grid-template-rows: auto 1fr; height: 100vh; width: 100vw; overflow: hidden; font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif; }
+.nvf-top { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid rgba(190,220,255,.14); background: rgba(8,14,30,.7); }
+.nvf-top h1 { margin: 0 8px 0 0; font-size: 12px; letter-spacing: .2em; font-weight: 800; }
+.nvf-top input[type="search"] { height: 30px; min-width: 180px; padding: 0 12px; border-radius: 99px; border: 1px solid rgba(190,220,255,.2); background: rgba(255,255,255,.06); color: inherit; font: inherit; font-size: 12px; }
+.nvf-chip, .nvf-btn { height: 28px; padding: 0 11px; border-radius: 99px; border: 1px solid rgba(190,220,255,.2); background: transparent; color: inherit; font: inherit; font-size: 11.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.nvf-chip i { width: 9px; height: 9px; border-radius: 99px; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.nvf-chip[aria-pressed="false"] { opacity: .42; } .nvf-chip:hover, .nvf-btn:hover { background: rgba(255,255,255,.08); } .nvf-btn[aria-pressed="true"] { background: hsl(var(--h, 192) 100% 60% / .22); }
+.nvf-spacer { flex: 1; }
+.nvf-list { grid-row: 2; overflow: auto; padding: 8px; border-right: 1px solid rgba(190,220,255,.1); scrollbar-width: thin; display: grid; align-content: start; gap: 2px; }
+.nvf-list button { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 6px 8px; border: 0; border-radius: 9px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.nvf-list button:hover, .nvf-list button[aria-current="true"] { background: rgba(255,255,255,.09); }
+.nvf-list i { flex: none; width: 9px; height: 9px; border-radius: 99px; background: var(--c); } .nvf-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nvf-stage { grid-row: 2; position: relative; min-width: 0; min-height: 0; }
+.nvf-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; } .nvf-stage canvas:active { cursor: grabbing; }
+.nvf-hint { position: absolute; left: 12px; bottom: 10px; font-size: 11px; color: rgba(224,238,255,.6); pointer-events: none; }
+.nvf-empty { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(224,238,255,.7); font-size: 13px; pointer-events: none; }
+.nvf-side { grid-row: 2; overflow: auto; padding: 14px; border-left: 1px solid rgba(190,220,255,.1); display: grid; align-content: start; gap: 10px; font-size: 12px; scrollbar-width: thin; }
+.nvf-side h2 { margin: 0; font-size: 15px; } .nvf-side p { margin: 0; color: rgba(224,238,255,.78); line-height: 1.45; }
+.nvf-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(224,238,255,.7); } .nvf-tag i { width: 9px; height: 9px; border-radius: 99px; background: var(--c); }
+.nvf-status { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 10.5px; background: rgba(255,255,255,.1); } .nvf-status[data-s="on"] { background: rgba(109,255,176,.2); color: #8dffc0; } .nvf-status[data-s="off"] { background: rgba(255,93,122,.18); color: #ff9db0; }
+.nvf-path { font-family: 'Cascadia Mono', Consolas, monospace; font-size: 10.5px; overflow-wrap: anywhere; color: rgba(224,238,255,.6); }
+.nvf-links { display: grid; gap: 3px; } .nvf-links button { display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; border: 0; border-radius: 8px; background: rgba(255,255,255,.05); color: inherit; font: inherit; font-size: 11.5px; cursor: pointer; text-align: left; } .nvf-links button:hover { background: rgba(255,255,255,.12); } .nvf-links small { color: rgba(224,238,255,.55); white-space: nowrap; }
+.nvf-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 11px; color: rgba(224,238,255,.7); }
+.nvf-flowkey { display: flex; align-items: center; gap: 6px; } .nvf-flowkey b { width: 22px; height: 0; border-top: 2px dashed #6fe3ff; }
+@media (max-width: 980px) { .nv-flowroot { grid-template-columns: 1fr 280px; } .nvf-list { display: none; } .nvf-stage { grid-column: 1; } .nvf-side { grid-column: 2; } }
+.nvf-top :focus-visible, .nvf-list :focus-visible, .nvf-side :focus-visible { outline: 2px solid #6fe3ff; outline-offset: 2px; }

@@ -1,0 +1,19 @@
+PARCHE NOTIFY - J.A.R.V.I.S. (oct-2026)
+
+Qué hace
+- Sustituye electron\notify.js: envía a ntfy en JSON (UTF-8), con fetch nativo
+  de Electron (sin node-fetch) y devuelve el error real si falla.
+- Añade electron\notifyIntents.js: reconoce "mándame al móvil que...",
+  "avísame al móvil en 10 minutos de...", "a las 18:30", "cancela los avisos",
+  "prueba la notificación al móvil" ANTES de que la frase llegue a Ollama.
+- Los avisos programados viven en el proceso main (no se congelan).
+- Añade UNA línea al principio de electron\main.js. Nada más se toca.
+- J.A.R.V.I.S. solo dice "enviado" si ntfy respondió 200.
+
+Configuración opcional en .env
+  NTFY_TOPIC= (configura tu propio tema; no hay valor predeterminado)
+  NTFY_SERVER=https://ntfy.sh    (por defecto)
+  NTFY_TOKEN=                    (solo si usas un tema protegido)
+
+Deshacer
+  python parche-notify\aplicar.py --revertir

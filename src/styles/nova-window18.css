@@ -1,0 +1,44 @@
+/* NOVA 18: ventana de isla con esquinas suaves y entrada/salida animada. */
+body.nova-island-window {
+  background: transparent !important;
+  overflow: hidden;
+}
+body.nova-island-window #root {
+  overflow: hidden;
+  border-radius: 26px;
+  background: transparent;
+}
+body.nova-island-window .nova-root {
+  box-sizing: border-box;
+  padding: 12px !important;
+  border: 1px solid rgba(135, 196, 255, .28);
+  border-radius: 26px;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(145deg, rgba(7, 13, 28, .985), rgba(12, 20, 40, .97));
+  box-shadow: 0 18px 56px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(255, 255, 255, .07);
+}
+body.nova-island-window .nova-bg {
+  position: absolute;
+  border-radius: 25px;
+}
+.nova-island-enter {
+  animation: nova18-island-enter 260ms cubic-bezier(.2, .82, .25, 1) both;
+  transform-origin: top center;
+}
+.nova-island-exit {
+  animation: nova18-island-exit 190ms cubic-bezier(.4, 0, 1, 1) both;
+  transform-origin: top center;
+  pointer-events: none;
+}
+@keyframes nova18-island-enter {
+  from { opacity: 0; transform: translateY(12px) scale(.965); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes nova18-island-exit {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to { opacity: 0; transform: translateY(8px) scale(.98); filter: blur(2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nova-island-enter, .nova-island-exit { animation-duration: 1ms; }
+}
