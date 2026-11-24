@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Update 15 — Nova: arreglos de las updates 13 y 14
 Requiere las updates 13 y 14.
 

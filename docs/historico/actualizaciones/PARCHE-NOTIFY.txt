@@ -1,3 +1,5 @@
+ARCHIVO HISTÓRICO: este parche corresponde a una versión antigua y no es necesario para la versión actual. Consulta la guía principal en ../../../README.md.
+
 PARCHE NOTIFY - J.A.R.V.I.S. (oct-2026)
 
 Qué hace

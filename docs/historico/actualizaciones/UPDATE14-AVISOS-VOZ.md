@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Update 14 — Nova: control del PC, avisos y voz en el móvil
 Requiere la update 13 ya instalada.
 

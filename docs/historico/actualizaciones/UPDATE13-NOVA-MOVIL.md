@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Update 13 — NOVA (nombre, interfaz, mascota y móvil)
 
 ## Instalar (2 minutos)

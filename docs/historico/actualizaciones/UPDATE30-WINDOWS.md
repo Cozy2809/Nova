@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Nova update 30 — Windows + Nova como un solo entorno
 
 Base requerida: **update 29 ya integrada** (el instalador lo comprueba por hash y se detiene si no coincide).

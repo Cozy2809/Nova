@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Nova update 27 — Croc y personalidad
 
 Esta primera entrega añade el envío de un archivo con Croc desde el chat o la voz de Nova y ajusta su prompt para que responda con más calidez y chispa cuando la conversación sea de broma. Las transferencias siempre requieren confirmación nativa de Windows; el código de Croc se genera en el proceso, no se construye un comando de shell con texto de la IA.

@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Nova update 28 — Widgets Windows
 
 Esta actualización completa la parte de escritorio que faltaba en la update 27. Conserva Croc y la personalidad añadidos por la update anterior. No agrega dependencias.

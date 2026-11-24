@@ -1,3 +1,5 @@
+> **Archivo histórico:** esta receta corresponde a una actualización antigua, no a la instalación actual. Consulta la [guía principal](../../../README.md).
+
 # Update 19 — Nova Desktop (Parte 1) + contrato de Nova Agent
 
 **Qué es:** un escritorio dentro de Nova (botón `ESCRITORIO` en la cabecera) con dock, barra superior, inicio y búsqueda, explorador de archivos, widgets, centro multimedia, panel de sistema, actividad del agente y ajustes; y, por debajo, el contrato de herramientas con permisos, confirmación, cancelación y auditoría que usará la Parte 2.
@@ -57,7 +59,7 @@ cd .
 python tools\instalar_nova19.py --revertir
 npm run build
 ```
-Restaura los 5 archivos desde `.bak-nova19` y borra los archivos nuevos (lista en `tools/nova19_manifest.txt`; el instalador y el manifiesto se quedan en `tools/`). Tu memoria y tus ajustes no se tocan. Si algo más fallara, la copia de la sección 1 es la red de seguridad.
+Restaura los 5 archivos desde `.bak-nova19` y borra los archivos nuevos (lista en [`tools/nova19_manifest.txt`](../../../tools/nova19_manifest.txt); el instalador y el manifiesto se quedan en `tools/`). Tu memoria y tus ajustes no se tocan. Si algo más fallara, la copia de la sección 1 es la red de seguridad.
 
 ## 5. Estado
 
@@ -84,10 +86,10 @@ Restaura los 5 archivos desde `.bak-nova19` y borra los archivos nuevos (lista e
 - Los vídeos de TikTok no pude verlos.
 
 ## 6. Documentos
-- `docs/NOVA_AUDITORIA_Y_PLAN.md` — auditoría del proyecto real, decisiones y riesgos.
-- `docs/NOVA_AGENT_INTEGRATION.md` — **punto de partida para ChatGPT (Parte 2).**
-- `docs/NOVA_ANDROID.md` — preparación para el S25 Ultra.
-- `docs/NOVA19_INVENTARIO.md` — archivos añadidos y modificados.
+- [`docs/NOVA_AUDITORIA_Y_PLAN.md`](../../NOVA_AUDITORIA_Y_PLAN.md) — auditoría del proyecto real, decisiones y riesgos.
+- [`docs/NOVA_AGENT_INTEGRATION.md`](../../NOVA_AGENT_INTEGRATION.md) — **punto de partida para ChatGPT (Parte 2).**
+- [`docs/NOVA_ANDROID.md`](../../NOVA_ANDROID.md) — preparación para el S25 Ultra.
+- [`docs/NOVA19_INVENTARIO.md`](../../NOVA19_INVENTARIO.md) — archivos añadidos y modificados.
 
 ## 7. Cosas de tu proyecto que conviene saber
 - `contacts.json` contiene destinos locales de WhatsApp; mantenlo fuera del repositorio.
